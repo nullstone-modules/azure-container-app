@@ -1,0 +1,15 @@
+org_name: nullstone
+name: azure-container-app
+friendly_name: Azure Container App
+description: Creates a serverless container app using Azure Container Apps.
+category: app
+subcategory: container
+provider_types:
+    - azure
+platform: container-app
+subplatform: ""
+type: ""
+appCategories: []
+is_public: true
+tool_name: opentofu
+source_url: https://github.com/nullstone-modules/azure-container-app
