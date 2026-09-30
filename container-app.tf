@@ -49,7 +49,7 @@ resource "azurerm_container_app" "this" {
       memory = var.memory
 
       dynamic "env" {
-        for_each = local.all_env_vars
+        for_each = local.container_env_vars
 
         content {
           name  = env.key
@@ -58,7 +58,7 @@ resource "azurerm_container_app" "this" {
       }
 
       dynamic "env" {
-        for_each = local.all_secret_refs
+        for_each = local.secret_names
 
         content {
           name        = env.key
@@ -81,11 +81,11 @@ resource "azurerm_container_app" "this" {
 
   // Secrets for the container app (referenced by env vars)
   dynamic "secret" {
-    for_each = local.managed_secret_values
+    for_each = local.secret_names
 
     content {
-      name  = lower(replace(secret.key, "/[^a-z0-9-]/", "-"))
-      value = secret.value
+      name  = secret.value
+      value = data.ns_env_values.this.secrets[secret.key]
     }
   }
 }
